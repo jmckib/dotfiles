@@ -1,0 +1,35 @@
+unset __CURRENT_GIT_BRANCH
+unset __CURRENT_GIT_BRANCH_STATUS
+unset __NUM_AHEAD
+unset __NUM_BEHIND
+unset __CURRENT_GIT_BRANCH_IS_DIRTY
+unset __REMOTE_URL
+
+__REMOTE_URL="$(git config --get remote.origin.url 2>/dev/null)"
+local st="$(git status 2>/dev/null)"
+if [[ -n "$st" ]]; then
+	local -a arr
+	arr=(${(f)st})
+
+	if [[ $arr[1] =~ 'Not currently on any branch.' ]]; then
+		__CURRENT_GIT_BRANCH='no-branch'
+	else
+		__CURRENT_GIT_BRANCH="${arr[1][(w)4]}";
+	fi
+
+	if [[ $arr[2] =~ 'Your branch is' ]]; then
+		if [[ $arr[2] =~ 'ahead' ]]; then
+			__CURRENT_GIT_BRANCH_STATUS='ahead'
+                        __NUM_AHEAD=`echo "$st" | grep '# Your branch is ahead' | sed -E 's/.*by ([0-9]+) commit./\1/'`
+		elif [[ $arr[2] =~ 'diverged' ]]; then
+			__CURRENT_GIT_BRANCH_STATUS='diverged'
+		else
+			__CURRENT_GIT_BRANCH_STATUS='behind'
+                        __NUM_BEHIND=`echo "$st" | grep '# Your branch is behind' | sed -E 's/.*by ([0-9]+) commits.*/\1/'`
+		fi
+	fi
+
+	if [[ $st =~ '(Changes to be committed:)|(Changes not staged for commit:)' ]]; then
+		__CURRENT_GIT_BRANCH_IS_DIRTY='1'
+	fi
+fi

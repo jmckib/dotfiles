@@ -1,0 +1,17 @@
+local branch_name="$(git symbolic-ref HEAD 2>/dev/null)" ||
+local branch_name="(unnamed branch)"     # detached HEAD
+local branch_name=${branch_name##refs/heads/}
+local remote_url="$(git config --get remote.origin.url 2>/dev/null)" ||
+print -- $remote_url
+if [[ -n "$branch_name" && $remote_url != "$__REMOTE_URL" ]]; then
+   update_current_git_vars
+fi
+# unset variables when moving into non git directory
+if [[ ! -n "$branch_name" ]]; then
+   unset __CURRENT_GIT_BRANCH
+   unset __CURRENT_GIT_BRANCH_STATUS
+   unset __NUM_AHEAD
+   unset __NUM_BEHIND
+   unset __CURRENT_GIT_BRANCH_IS_DIRTY
+   unset __REMOTE_URL
+fi
