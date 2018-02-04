@@ -1,1 +1,7 @@
 --pager=less -R
+
+--ignore-dir
+webpack_bundles
+
+--ignore-dir
+venv

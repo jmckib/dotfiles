@@ -51,7 +51,7 @@
 ;; Get rid of annoying buffer stil has clients messages
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
 
-(global-set-key "\C-cr" (lambda () (interactive) (revert-buffer nil 1)))
+(global-set-key (kbd "C-c r") (lambda () (interactive) (revert-buffer nil 1)))
 
 (global-set-key "\C-s" 'isearch-forward-regexp)
 (global-set-key "\C-r" 'isearch-backward-regexp)
