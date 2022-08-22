@@ -7,5 +7,3 @@
 #===============
 # add private keys to the ssh-agent (this will prompt for password)
 ssh-add
-
-eval "$(pyenv init -)"

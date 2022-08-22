@@ -5,6 +5,9 @@
       '(("django"    . "\\.html?\\'"))
 )
 (setq web-mode-markup-indent-offset 2)
+(setq web-mode-css-indent-offset 2)
+(setq web-mode-code-indent-offset 2)
+(setq web-mode-attr-indent-offset 2)
 
 ;; (require 'coffee-mode)
 (add-hook 'after-save-hook
@@ -129,7 +132,8 @@ region\) apply comment-or-uncomment to the current line"
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-	("f5e56ac232ff858afb08294fc3a519652ce8a165272e3c65165c42d6fe0262a0" default)))
+    ("f5e56ac232ff858afb08294fc3a519652ce8a165272e3c65165c42d6fe0262a0" default)))
+ '(package-selected-packages (quote (rjsx-mode)))
  '(paradox-github-token t)
  '(show-trailing-whitespace t))
 (setq-default column-number-mode t)
@@ -146,3 +150,5 @@ region\) apply comment-or-uncomment to the current line"
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'upcase-region 'disabled nil)
+(put 'set-goal-column 'disabled nil)

@@ -5,3 +5,15 @@ webpack_bundles
 
 --ignore-dir
 venv
+
+--ignore-dir
+.mypy_cache
+
+--ignore-dir
+terraform.tfstate.d
+
+--ignore-dir
+.terraform
+
+--ignore-dir
+cassettes
